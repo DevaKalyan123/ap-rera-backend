@@ -1,0 +1,213 @@
+2026-04-20 11:45:12,704 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-20 11:45:12,719 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-20 11:45:12,720 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-20 11:45:54,760 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-20 11:45:54,763 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-20 11:45:54,763 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-20 11:51:09,322 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-20 11:51:09,328 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-20 11:51:09,328 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-20 11:53:08,209 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-20 11:53:08,214 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-20 11:53:08,214 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-20 11:54:03,676 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-20 11:54:03,680 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-20 11:54:03,680 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:18:22,324 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:18:22,341 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:18:22,342 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:18:57,897 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:18:57,901 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:18:57,901 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:24:30,854 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:24:30,858 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:24:30,858 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:26:23,041 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:26:23,045 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:26:23,046 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:27:25,238 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:27:25,242 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:27:25,242 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:27:27,253 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:27:27,256 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:27:27,256 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:27:28,392 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 11:28:22,555 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:28:22,582 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:28:22,582 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:28:28,060 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 11:28:47,589 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:28:47,593 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:28:47,594 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:29:02,328 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:29:02,332 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:29:02,332 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:29:04,479 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 11:29:04,483 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 11:29:04,483 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 11:29:05,451 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 11:41:31,479 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-29 11:41:32,373 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-29 11:43:24,414 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-29 11:43:24,576 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-29 11:51:25,362 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126830153', 'pan_number': 'HONKP4709K'}
+2026-04-29 11:51:25,405 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126830153', 'pan_number': 'HONKP4709K'}
+2026-04-29 12:27:05,546 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 12:27:05,557 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 12:27:05,557 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 12:27:10,517 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 12:27:10,525 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 12:27:10,526 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 12:27:13,071 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 16:37:29,532 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 16:37:29,540 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 16:37:29,540 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 16:37:32,830 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 16:38:03,035 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 16:38:03,043 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 16:38:03,044 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 16:38:05,705 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 16:38:29,147 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 16:38:29,152 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 16:38:29,153 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 16:38:31,423 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 16:49:03,378 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 16:49:03,387 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 16:49:03,388 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 16:49:07,206 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-29 16:49:07,216 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-29 16:49:07,216 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-29 16:49:10,505 [WARNING] werkzeug:  * Debugger is active!
+2026-04-29 17:26:47,599 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-29 17:26:47,791 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-30 09:25:45,096 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 09:25:45,135 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 09:25:45,135 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 09:26:04,725 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 09:26:04,736 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 09:26:04,737 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 09:26:08,691 [WARNING] werkzeug:  * Debugger is active!
+2026-04-30 10:05:35,597 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-30 10:05:35,652 [INFO] app.controllers.project_uploddocuments_controller: GET request received: {'application_number': '100126782562', 'pan_number': 'RAMYA1234K'}
+2026-04-30 15:25:52,155 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 15:25:52,181 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 15:25:52,182 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 15:26:05,966 [WARNING] werkzeug:  * Debugger is active!
+2026-04-30 15:26:36,709 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 15:26:36,720 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 15:26:36,720 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 15:26:39,793 [WARNING] werkzeug:  * Debugger is active!
+2026-04-30 15:26:52,665 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 15:26:52,672 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 15:26:52,673 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 15:26:55,086 [WARNING] werkzeug:  * Debugger is active!
+2026-04-30 15:33:26,387 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 15:33:26,393 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 15:33:26,393 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 15:33:30,876 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 15:33:30,884 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 15:33:30,884 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 15:33:33,295 [WARNING] werkzeug:  * Debugger is active!
+2026-04-30 15:43:01,799 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 15:43:01,803 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 15:43:01,803 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 15:43:03,849 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 15:43:03,854 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 15:43:03,854 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 15:43:04,913 [WARNING] werkzeug:  * Debugger is active!
+2026-04-30 16:25:12,470 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-30 16:25:12,474 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-04-30 16:25:12,474 [INFO] apscheduler.scheduler: Scheduler started
+2026-04-30 16:25:13,836 [WARNING] werkzeug:  * Debugger is active!
+2026-05-02 09:26:32,907 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-02 09:26:32,949 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-02 09:26:32,950 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-02 09:26:50,804 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-02 09:26:50,811 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-02 09:26:50,812 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-02 09:26:52,565 [WARNING] werkzeug:  * Debugger is active!
+2026-05-05 10:01:07,657 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-05 10:01:07,671 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-05 10:01:07,671 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-05 10:01:17,729 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-05 10:01:17,733 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-05 10:01:17,733 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-05 10:01:18,980 [WARNING] werkzeug:  * Debugger is active!
+2026-05-05 19:11:31,528 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-05 19:11:31,579 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-05 19:11:31,580 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-05 19:11:45,181 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-05 19:11:45,192 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-05 19:11:45,193 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-05 19:11:48,334 [WARNING] werkzeug:  * Debugger is active!
+2026-05-06 09:18:45,681 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-06 09:18:45,697 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-06 09:18:45,697 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-06 09:18:56,093 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-06 09:18:56,097 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-06 09:18:56,097 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-06 09:18:57,307 [WARNING] werkzeug:  * Debugger is active!
+2026-05-06 09:38:49,626 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-06 09:38:49,630 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-06 09:38:49,631 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-06 09:38:51,925 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-06 09:38:51,928 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-06 09:38:51,929 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-06 09:38:53,196 [WARNING] werkzeug:  * Debugger is active!
+2026-05-07 08:58:52,634 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 08:58:52,689 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-07 08:58:52,689 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-07 08:59:04,654 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 08:59:04,663 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-07 08:59:04,663 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-07 08:59:07,540 [WARNING] werkzeug:  * Debugger is active!
+2026-05-08 09:43:16,787 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-08 09:43:16,803 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-08 09:43:16,803 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-08 09:43:26,519 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-08 09:43:26,523 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-08 09:43:26,524 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-08 09:43:27,697 [WARNING] werkzeug:  * Debugger is active!
+2026-05-08 09:43:40,301 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-08 09:43:40,305 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-08 09:43:40,305 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-08 09:43:42,430 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-08 09:43:42,435 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-08 09:43:42,435 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-08 09:43:43,547 [WARNING] werkzeug:  * Debugger is active!
+2026-05-08 16:16:58,272 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-08 16:16:58,288 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-08 16:16:58,288 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-08 16:17:09,540 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-08 16:17:09,545 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-08 16:17:09,545 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-08 16:17:10,614 [WARNING] werkzeug:  * Debugger is active!
+2026-05-09 09:11:19,509 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-09 09:11:19,531 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-09 09:11:19,531 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-09 09:11:27,964 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-09 09:11:27,969 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-09 09:11:27,969 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-09 09:11:29,303 [WARNING] werkzeug:  * Debugger is active!
+2026-05-09 12:43:09,495 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-09 12:43:09,511 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-09 12:43:09,511 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-09 12:43:18,290 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-09 12:43:18,293 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-09 12:43:18,294 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-09 12:43:19,347 [WARNING] werkzeug:  * Debugger is active!
+2026-05-11 10:23:33,151 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 10:23:33,165 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 10:23:33,165 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 10:23:42,990 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 10:23:42,994 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 10:23:42,994 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 10:23:44,148 [WARNING] werkzeug:  * Debugger is active!
+2026-05-11 10:51:23,287 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 10:51:23,294 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 10:51:23,294 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 10:51:27,369 [WARNING] werkzeug:  * Debugger is active!
+2026-05-11 10:51:57,573 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 10:51:57,581 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 10:51:57,582 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 10:51:59,960 [WARNING] werkzeug:  * Debugger is active!
