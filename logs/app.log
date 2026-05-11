@@ -215,3 +215,21 @@
 2026-05-11 10:55:06,819 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
 2026-05-11 10:55:06,819 [INFO] apscheduler.scheduler: Scheduler started
 2026-05-11 10:55:09,900 [WARNING] werkzeug:  * Debugger is active!
+2026-05-11 16:43:30,043 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 16:43:30,091 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 16:43:30,092 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 16:43:43,677 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 16:43:43,686 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 16:43:43,686 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 16:43:48,086 [WARNING] werkzeug:  * Debugger is active!
+2026-05-11 17:19:26,644 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 17:19:26,653 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 17:19:26,654 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 17:19:29,967 [WARNING] werkzeug:  * Debugger is active!
+2026-05-11 17:19:35,818 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 17:19:35,836 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 17:19:35,837 [INFO] apscheduler.scheduler: Scheduler started
+2026-05-11 17:19:39,456 [WARNING] werkzeug:  * Debugger is active!
+2026-05-11 17:20:07,487 [INFO] apscheduler.scheduler: Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 17:20:07,496 [INFO] apscheduler.scheduler: Added job "send_payment_reminders" to job store "default"
+2026-05-11 17:20:07,497 [INFO] apscheduler.scheduler: Scheduler started
