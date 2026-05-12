@@ -5,45 +5,48 @@ from flask import current_app
 
 def send_otp_email(to_email, otp):
 
-    subject = "AP RERA Admin Login OTP"
+    try:
 
-    body = f"""
-Hello,
+        subject = "AP RERA Admin Login OTP"
 
-Your OTP for AP RERA Admin Login is:
+        body = f"""
+Hello Admin,
 
-{otp}
+Your OTP for login is: {otp}
 
 This OTP is valid for 5 minutes.
 
 Do not share this OTP with anyone.
 
-Thank You,
+Thanks,
 AP RERA Team
 """
 
-    msg = MIMEText(body)
+        msg = MIMEText(body)
 
-    msg["Subject"] = subject
-    msg["From"] = current_app.config.get("FROM_EMAIL")
-    msg["To"] = to_email
+        msg["Subject"] = subject
+        msg["From"] = current_app.config.get("FROM_EMAIL")
+        msg["To"] = to_email
 
-    try:
+        smtp_host = current_app.config.get("SMTP_HOST")
+        smtp_port = int(current_app.config.get("SMTP_PORT"))
 
-        print("SMTP HOST:", current_app.config.get("SMTP_HOST"))
-        print("SMTP USER:", current_app.config.get("SMTP_USER"))
+        smtp_user = current_app.config.get("SMTP_USER")
+        smtp_password = current_app.config.get("SMTP_PASSWORD")
 
-        server = smtplib.SMTP(
-            current_app.config.get("SMTP_HOST"),
-            int(current_app.config.get("SMTP_PORT", 587))
-        )
+        print("================================")
+        print("SMTP HOST:", smtp_host)
+        print("SMTP PORT:", smtp_port)
+        print("SMTP USER:", smtp_user)
+        print("TO EMAIL:", to_email)
+        print("OTP:", otp)
+        print("================================")
+
+        server = smtplib.SMTP(smtp_host, smtp_port)
 
         server.starttls()
 
-        server.login(
-            current_app.config.get("SMTP_USER"),
-            current_app.config.get("SMTP_PASSWORD")
-        )
+        server.login(smtp_user, smtp_password)
 
         server.sendmail(
             msg["From"],
@@ -51,16 +54,11 @@ AP RERA Team
             msg.as_string()
         )
 
-        print("OTP MAIL SENT SUCCESSFULLY")
+        server.quit()
+
+        print("EMAIL SENT SUCCESSFULLY")
 
     except Exception as e:
 
-        print("MAIL ERROR:", str(e))
-
+        print("EMAIL ERROR:", str(e))
         raise e
-
-    finally:
-        try:
-            server.quit()
-        except:
-            pass
