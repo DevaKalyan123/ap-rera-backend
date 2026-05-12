@@ -48,7 +48,8 @@ def admin_login():
         otp = str(random.randint(100000, 999999))
         otp_store[username] = otp
 
-        print("OTP:", otp)
+        send_otp_email(result["email"], otp)
+
         return (
             jsonify({"message": "OTP sent to registered email", "username": username}),
             200,

@@ -1,55 +1,127 @@
-import smtplib
-from email.mime.text import MIMEText
-from flask import current_app
+import random
+from flask import Blueprint, request, jsonify
+from app.models.database import db
+from sqlalchemy import text
+from werkzeug.security import check_password_hash
+from app.utils.mail_utils import send_otp_email
+
+admin_bp = Blueprint("admin_bp", __name__)
+
+# Temporary OTP store
+otp_store = {}
 
 
-def send_otp_email(to_email, otp):
-    subject = "OTP for Admin Login"
-
-    body = f"""
-Hello,
-
-Your OTP for login is: {otp}
-
-This OTP is valid for 5 minutes.
-
-Do not share this OTP with anyone.
-"""
-
-    msg = MIMEText(body)
-    msg["Subject"] = subject
-    msg["From"] = current_app.config.get("FROM_EMAIL")
-    msg["To"] = to_email
-
-    # Debug logs
-    print("SMTP HOST:", current_app.config.get("SMTP_HOST"))
-    print("SMTP USER:", current_app.config.get("SMTP_USER"))
-    print("SMTP PASS:", current_app.config.get("SMTP_PASSWORD"))
-
-    server = smtplib.SMTP(
-        current_app.config.get("SMTP_HOST"),
-        current_app.config.get("SMTP_PORT", 587)
-    )
-
+@admin_bp.route("/admin/login", methods=["POST"])
+def admin_login():
     try:
-        server.starttls()
+        data = request.get_json()
 
-        server.login(
-            current_app.config.get("SMTP_USER"),
-            current_app.config.get("SMTP_PASSWORD")
+        username = data.get("username")
+        password = data.get("password")
+
+        if not username or not password:
+            return jsonify({"error": "Username and password required"}), 400
+
+        result = (
+            db.session.execute(
+                text(
+                    """
+                SELECT * FROM admin_master_t
+                WHERE username = :u
+                LIMIT 1
+            """
+                ),
+                {"u": username},
+            )
+            .mappings()
+            .fetchone()
         )
 
-        server.sendmail(
-            msg["From"],
-            [to_email],
-            msg.as_string()
-        )
+        if not result:
+            return jsonify({"error": "Invalid username"}), 401
 
-        print("MAIL SENT SUCCESSFULLY")
+        # ✅ Plain password check
+        if result["password"] != password:
+            return jsonify({"error": "Invalid password"}), 401
+
+        # OTP generation
+        otp = str(random.randint(100000, 999999))
+        otp_store[username] = otp
+
+        send_otp_email(result["email"], otp)
+
+        return (
+            jsonify({"message": "OTP sent to registered email", "username": username}),
+            200,
+        )
 
     except Exception as e:
-        print("MAIL ERROR:", str(e))
-        raise e
+        print(e)
+        return jsonify({"error": "Internal server error"}), 500
 
-    finally:
-        server.quit()
+
+# -------------------------------
+# VERIFY OTP → RETURN FULL DATA
+# -------------------------------
+@admin_bp.route("/admin/verify-otp", methods=["POST"])
+def verify_otp():
+    try:
+        data = request.get_json()
+
+        username = data.get("username")
+        otp = data.get("otp")
+
+        if not username or not otp:
+            return jsonify({"error": "Username and OTP required"}), 400
+
+        if otp_store.get(username) != otp:
+            return jsonify({"error": "Invalid OTP"}), 401
+
+        result = (
+            db.session.execute(
+                text(
+                    """
+                SELECT * FROM admin_master_t
+                WHERE username = :u
+            """
+                ),
+                {"u": username},
+            )
+            .mappings()
+            .fetchone()
+        )
+
+        if not result:
+            return jsonify({"error": "Admin not found"}), 404
+
+        # remove OTP after success
+        otp_store.pop(username, None)
+
+        return (
+            jsonify(
+                {
+                    "message": "Login successful",
+                    "admin": {
+                        "id": result["id"],
+                        "username": result["username"],
+                        "full_name": result["full_name"],
+                        "email": result["email"],
+                        "phone": result["phone"],
+                        "role": result["role"],
+                        "department": result["department"],
+                        "photo": result["photo"],
+                        "employee_id": result["employee_id"],
+                        "state": result["state"],
+                        "district": result["district"],
+                        "mandal": result["mandal"],
+                        "village": result["village"],
+                        "pincode": result["pincode"],
+                    },
+                }
+            ),
+            200,
+        )
+
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Internal server error"}), 500
