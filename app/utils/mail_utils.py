@@ -5,48 +5,48 @@ from flask import current_app
 
 def send_otp_email(to_email, otp):
 
-    try:
+    subject = "AP RERA Admin Login OTP"
 
-        subject = "AP RERA Admin Login OTP"
+    body = f"""
+Hello,
 
-        body = f"""
-Hello Admin,
+Your OTP for AP RERA Admin Login is:
 
-Your OTP for login is: {otp}
+{otp}
 
 This OTP is valid for 5 minutes.
 
 Do not share this OTP with anyone.
 
-Thanks,
+Thank You,
 AP RERA Team
 """
 
-        msg = MIMEText(body)
+    msg = MIMEText(body)
 
-        msg["Subject"] = subject
-        msg["From"] = current_app.config.get("FROM_EMAIL")
-        msg["To"] = to_email
+    msg["Subject"] = subject
+    msg["From"] = current_app.config.get("FROM_EMAIL")
+    msg["To"] = to_email
 
-        smtp_host = current_app.config.get("SMTP_HOST")
-        smtp_port = int(current_app.config.get("SMTP_PORT"))
+    try:
 
-        smtp_user = current_app.config.get("SMTP_USER")
-        smtp_password = current_app.config.get("SMTP_PASSWORD")
-
-        print("================================")
-        print("SMTP HOST:", smtp_host)
-        print("SMTP PORT:", smtp_port)
-        print("SMTP USER:", smtp_user)
-        print("TO EMAIL:", to_email)
+        print("===================================")
+        print("SENDING OTP EMAIL")
+        print("TO:", to_email)
         print("OTP:", otp)
-        print("================================")
+        print("===================================")
 
-        server = smtplib.SMTP(smtp_host, smtp_port)
+        server = smtplib.SMTP(
+            current_app.config.get("SMTP_HOST"),
+            int(current_app.config.get("SMTP_PORT", 587))
+        )
 
         server.starttls()
 
-        server.login(smtp_user, smtp_password)
+        server.login(
+            current_app.config.get("SMTP_USER"),
+            current_app.config.get("SMTP_PASSWORD")
+        )
 
         server.sendmail(
             msg["From"],
@@ -60,5 +60,6 @@ AP RERA Team
 
     except Exception as e:
 
-        print("EMAIL ERROR:", str(e))
+        print("MAIL ERROR:", str(e))
+
         raise e

@@ -3,11 +3,11 @@ from flask import Blueprint, request, jsonify
 from sqlalchemy import text
 
 from app.models.database import db
-# from app.utils.mail_utils import send_otp_email
+from app.utils.mail_utils import send_otp_email
 
 admin_bp = Blueprint("admin_bp", __name__)
 
-# Temporary OTP store
+# Temporary OTP Store
 otp_store = {}
 
 
@@ -28,6 +28,7 @@ def admin_login():
         # VALIDATE INPUT
         # =========================================
         if not username or not password:
+
             return jsonify({
                 "error": "Username and password required"
             }), 400
@@ -53,6 +54,7 @@ def admin_login():
         # USERNAME CHECK
         # =========================================
         if not result:
+
             return jsonify({
                 "error": "Invalid username"
             }), 401
@@ -61,6 +63,7 @@ def admin_login():
         # PASSWORD CHECK
         # =========================================
         if result["password"] != password:
+
             return jsonify({
                 "error": "Invalid password"
             }), 401
@@ -68,14 +71,11 @@ def admin_login():
         # =========================================
         # OTP GENERATION
         # =========================================
-        otp = "123456"
+        otp = str(random.randint(100000, 999999))
 
         # Store OTP
         otp_store[username] = otp
 
-        # =========================================
-        # PRINT OTP IN RENDER LOGS
-        # =========================================
         print("===================================")
         print("LOGIN SUCCESS")
         print("USERNAME:", username)
@@ -83,15 +83,15 @@ def admin_login():
         print("===================================")
 
         # =========================================
-        # EMAIL OTP (TEMP DISABLED)
+        # SEND OTP EMAIL
         # =========================================
-        # send_otp_email(result["email"], otp)
+        send_otp_email(result["email"], otp)
 
         # =========================================
         # RESPONSE
         # =========================================
         return jsonify({
-            "message": "OTP generated successfully",
+            "message": "OTP sent successfully",
             "username": username
         }), 200
 
@@ -121,6 +121,7 @@ def verify_otp():
         # VALIDATE INPUT
         # =========================================
         if not username or not otp:
+
             return jsonify({
                 "error": "Username and OTP required"
             }), 400
@@ -129,6 +130,7 @@ def verify_otp():
         # VERIFY OTP
         # =========================================
         if otp_store.get(username) != otp:
+
             return jsonify({
                 "error": "Invalid or expired OTP"
             }), 401
@@ -149,7 +151,11 @@ def verify_otp():
             .fetchone()
         )
 
+        # =========================================
+        # ADMIN NOT FOUND
+        # =========================================
         if not result:
+
             return jsonify({
                 "error": "Admin not found"
             }), 404
@@ -164,6 +170,7 @@ def verify_otp():
         # =========================================
         return jsonify({
             "message": "Login successful",
+
             "admin": {
                 "id": result["id"],
                 "username": result["username"],
