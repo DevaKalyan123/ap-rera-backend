@@ -57,30 +57,28 @@ def admin_login():
         # OTP GENERATION
         # =========================================
 
-        # TEMP STATIC OTP FOR TESTING
-        otp = "123456"
+        # Generate random OTP
+        otp = str(random.randint(100000, 999999))
 
         # Store OTP
         otp_store[username] = otp
 
-        # Print OTP in Render logs
         print("===================================")
         print("LOGIN SUCCESS")
         print("USERNAME:", username)
         print("OTP:", otp)
         print("===================================")
 
-        # OPTIONAL MAIL SEND
-        # Uncomment later after SMTP works
-
-        # send_otp_email(result["email"], otp)
+        # Send OTP mail
+        send_otp_email(result["email"], otp)
 
         return jsonify({
-            "message": "OTP generated successfully",
+            "message": "OTP sent successfully",
             "username": username
         }), 200
 
     except Exception as e:
+
         print("LOGIN ERROR:", str(e))
 
         return jsonify({
@@ -93,7 +91,9 @@ def admin_login():
 # =========================================
 @admin_bp.route("/admin/verify-otp", methods=["POST"])
 def verify_otp():
+
     try:
+
         data = request.get_json()
 
         username = data.get("username")
@@ -153,9 +153,9 @@ def verify_otp():
         }), 200
 
     except Exception as e:
+
         print("VERIFY OTP ERROR:", str(e))
 
         return jsonify({
             "error": "Internal server error"
         }), 500
-    
