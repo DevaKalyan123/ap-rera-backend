@@ -1,8 +1,9 @@
 import random
 from flask import Blueprint, request, jsonify
-from app.models.database import db
 from sqlalchemy import text
-from app.utils.mail_utils import send_otp_email
+
+from app.models.database import db
+# from app.utils.mail_utils import send_otp_email
 
 admin_bp = Blueprint("admin_bp", __name__)
 
@@ -23,17 +24,22 @@ def admin_login():
         username = data.get("username")
         password = data.get("password")
 
-        # Validate input
+        # =========================================
+        # VALIDATE INPUT
+        # =========================================
         if not username or not password:
             return jsonify({
                 "error": "Username and password required"
             }), 400
 
-        # Get admin from DB
+        # =========================================
+        # GET ADMIN FROM DATABASE
+        # =========================================
         result = (
             db.session.execute(
                 text("""
-                    SELECT * FROM admin_master_t
+                    SELECT *
+                    FROM admin_master_t
                     WHERE username = :u
                     LIMIT 1
                 """),
@@ -43,13 +49,17 @@ def admin_login():
             .fetchone()
         )
 
-        # Username check
+        # =========================================
+        # USERNAME CHECK
+        # =========================================
         if not result:
             return jsonify({
                 "error": "Invalid username"
             }), 401
 
-        # Password check
+        # =========================================
+        # PASSWORD CHECK
+        # =========================================
         if result["password"] != password:
             return jsonify({
                 "error": "Invalid password"
@@ -58,23 +68,30 @@ def admin_login():
         # =========================================
         # OTP GENERATION
         # =========================================
-
         otp = str(random.randint(100000, 999999))
 
         # Store OTP
         otp_store[username] = otp
 
+        # =========================================
+        # PRINT OTP IN RENDER LOGS
+        # =========================================
         print("===================================")
         print("LOGIN SUCCESS")
         print("USERNAME:", username)
         print("OTP:", otp)
         print("===================================")
 
-        # Send OTP Mail
-        send_otp_email(result["email"], otp)
+        # =========================================
+        # EMAIL OTP (TEMP DISABLED)
+        # =========================================
+        # send_otp_email(result["email"], otp)
 
+        # =========================================
+        # RESPONSE
+        # =========================================
         return jsonify({
-            "message": "OTP sent successfully",
+            "message": "OTP generated successfully",
             "username": username
         }), 200
 
@@ -100,23 +117,30 @@ def verify_otp():
         username = data.get("username")
         otp = data.get("otp")
 
-        # Validate input
+        # =========================================
+        # VALIDATE INPUT
+        # =========================================
         if not username or not otp:
             return jsonify({
                 "error": "Username and OTP required"
             }), 400
 
-        # Verify OTP
+        # =========================================
+        # VERIFY OTP
+        # =========================================
         if otp_store.get(username) != otp:
             return jsonify({
                 "error": "Invalid or expired OTP"
             }), 401
 
-        # Get admin details
+        # =========================================
+        # GET ADMIN DETAILS
+        # =========================================
         result = (
             db.session.execute(
                 text("""
-                    SELECT * FROM admin_master_t
+                    SELECT *
+                    FROM admin_master_t
                     WHERE username = :u
                 """),
                 {"u": username},
@@ -130,9 +154,14 @@ def verify_otp():
                 "error": "Admin not found"
             }), 404
 
-        # Remove OTP after success
+        # =========================================
+        # REMOVE OTP AFTER SUCCESS
+        # =========================================
         otp_store.pop(username, None)
 
+        # =========================================
+        # SUCCESS RESPONSE
+        # =========================================
         return jsonify({
             "message": "Login successful",
             "admin": {
