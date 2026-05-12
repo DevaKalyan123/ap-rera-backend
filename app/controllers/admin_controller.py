@@ -15,7 +15,9 @@ otp_store = {}
 # =========================================
 @admin_bp.route("/admin/login", methods=["POST"])
 def admin_login():
+
     try:
+
         data = request.get_json()
 
         username = data.get("username")
@@ -57,7 +59,6 @@ def admin_login():
         # OTP GENERATION
         # =========================================
 
-        # Generate random OTP
         otp = str(random.randint(100000, 999999))
 
         # Store OTP
@@ -69,7 +70,7 @@ def admin_login():
         print("OTP:", otp)
         print("===================================")
 
-        # Send OTP mail
+        # Send OTP Mail
         send_otp_email(result["email"], otp)
 
         return jsonify({
