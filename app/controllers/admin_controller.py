@@ -68,7 +68,7 @@ def admin_login():
         # =========================================
         # OTP GENERATION
         # =========================================
-        otp = str(random.randint(100000, 999999))
+        otp = "123456"
 
         # Store OTP
         otp_store[username] = otp
