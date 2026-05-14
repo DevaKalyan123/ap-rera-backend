@@ -31,12 +31,13 @@ def admin_login():
         # VALIDATE INPUT
         # =========================================
         if not username or not password:
+
             return jsonify({
                 "error": "Username and password required"
             }), 400
 
         # =========================================
-        # GET ADMIN FROM DATABASE
+        # GET ADMIN FROM DB
         # =========================================
         result = (
             db.session.execute(
@@ -56,7 +57,6 @@ def admin_login():
         # USERNAME CHECK
         # =========================================
         if not result:
-            logging.error("INVALID USERNAME")
 
             return jsonify({
                 "error": "Invalid username"
@@ -67,33 +67,38 @@ def admin_login():
         # =========================================
         if result["password"] != password:
 
-            logging.error("INVALID PASSWORD")
-
             return jsonify({
                 "error": "Invalid password"
             }), 401
 
         # =========================================
-        # OTP GENERATION
+        # GENERATE OTP
         # =========================================
         otp = str(random.randint(100000, 999999))
 
-        # STORE OTP
+        # Store OTP
         otp_store[username] = otp
 
         # =========================================
         # LOGS
         # =========================================
-        logging.error("===================================")
-        logging.error(f"LOGIN SUCCESS FOR: {username}")
-        logging.error(f"OTP GENERATED: {otp}")
-        logging.error("===================================")
+        print("===================================")
+        print(f"LOGIN SUCCESS FOR: {username}")
+        print(f"OTP GENERATED: {otp}")
+        print("===================================")
 
         # =========================================
-        # SEND OTP EMAIL
+        # SEND MAIL
         # =========================================
-        # TEMP COMMENT FOR DEBUGGING
-        send_otp_email(result["email"], otp)
+        try:
+
+            send_otp_email(result["email"], otp)
+
+            print("MAIL SENT SUCCESSFULLY")
+
+        except Exception as mail_error:
+
+            print("MAIL ERROR:", str(mail_error))
 
         # =========================================
         # SUCCESS RESPONSE
@@ -105,7 +110,7 @@ def admin_login():
 
     except Exception as e:
 
-        logging.error(f"LOGIN ERROR: {str(e)}")
+        print("LOGIN ERROR:", str(e))
 
         return jsonify({
             "error": "Internal server error"
@@ -129,6 +134,7 @@ def verify_otp():
         # VALIDATE INPUT
         # =========================================
         if not username or not otp:
+
             return jsonify({
                 "error": "Username and OTP required"
             }), 400
@@ -136,9 +142,11 @@ def verify_otp():
         # =========================================
         # VERIFY OTP
         # =========================================
-        if otp_store.get(username) != otp:
+        stored_otp = otp_store.get(username)
 
-            logging.error("INVALID OTP")
+        if stored_otp != otp:
+
+            print("INVALID OTP")
 
             return jsonify({
                 "error": "Invalid or expired OTP"
@@ -160,10 +168,8 @@ def verify_otp():
             .fetchone()
         )
 
-        # =========================================
-        # ADMIN NOT FOUND
-        # =========================================
         if not result:
+
             return jsonify({
                 "error": "Admin not found"
             }), 404
@@ -173,14 +179,17 @@ def verify_otp():
         # =========================================
         otp_store.pop(username, None)
 
-        logging.error(f"OTP VERIFIED SUCCESSFULLY FOR: {username}")
+        print("OTP VERIFIED SUCCESSFULLY")
 
         # =========================================
         # SUCCESS RESPONSE
         # =========================================
         return jsonify({
+
             "message": "Login successful",
+
             "admin": {
+
                 "id": result["id"],
                 "username": result["username"],
                 "full_name": result["full_name"],
@@ -195,12 +204,14 @@ def verify_otp():
                 "mandal": result["mandal"],
                 "village": result["village"],
                 "pincode": result["pincode"],
+
             }
+
         }), 200
 
     except Exception as e:
 
-        logging.error(f"VERIFY OTP ERROR: {str(e)}")
+        print("VERIFY OTP ERROR:", str(e))
 
         return jsonify({
             "error": "Internal server error"
