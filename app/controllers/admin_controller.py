@@ -212,4 +212,4 @@ def verify_otp():
 
         return jsonify({
             "error": "Internal server error"
-        }), 500
+        }), 500 

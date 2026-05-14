@@ -10,7 +10,11 @@ def send_otp_email(to_email, otp):
 
     subject = "AP RERA OTP"
 
-    body = f"Your OTP is: {otp}"
+    body = f"""
+Your OTP is: {otp}
+
+Do not share this OTP.
+"""
 
     msg = MIMEText(body)
 
@@ -20,17 +24,21 @@ def send_otp_email(to_email, otp):
 
     try:
 
-        print("CONNECTING TO SMTP")
+        print("CONNECTING SMTP")
 
         server = smtplib.SMTP("smtp.gmail.com", 587)
 
+        server.ehlo()
+
         server.starttls()
 
-        print("LOGIN TO GMAIL")
+        server.ehlo()
+
+        print("LOGIN GMAIL")
 
         server.login(sender_email, app_password)
 
-        print("SENDING MAIL")
+        print("SENDING EMAIL")
 
         server.sendmail(
             sender_email,
