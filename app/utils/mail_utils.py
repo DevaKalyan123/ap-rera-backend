@@ -1,6 +1,5 @@
 import smtplib
 from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 
 
 def send_otp_email(to_email, otp):
@@ -9,34 +8,29 @@ def send_otp_email(to_email, otp):
 
     app_password = "qwhxwmwflunoslwn"
 
-    subject = "AP RERA Admin OTP"
+    subject = "AP RERA OTP"
 
-    body = f"""
-Hello Admin,
+    body = f"Your OTP is: {otp}"
 
-Your OTP is: {otp}
+    msg = MIMEText(body)
 
-Do not share this OTP with anyone.
-
-Regards,
-AP RERA Team
-"""
-
-    msg = MIMEMultipart()
-
+    msg["Subject"] = subject
     msg["From"] = sender_email
     msg["To"] = to_email
-    msg["Subject"] = subject
-
-    msg.attach(MIMEText(body, "plain"))
 
     try:
+
+        print("CONNECTING TO SMTP")
 
         server = smtplib.SMTP("smtp.gmail.com", 587)
 
         server.starttls()
 
+        print("LOGIN TO GMAIL")
+
         server.login(sender_email, app_password)
+
+        print("SENDING MAIL")
 
         server.sendmail(
             sender_email,

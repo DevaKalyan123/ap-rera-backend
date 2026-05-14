@@ -76,19 +76,16 @@ def admin_login():
         # =========================================
         otp = str(random.randint(100000, 999999))
 
-        # Store OTP
+        # STORE OTP
         otp_store[username] = otp
 
-        # =========================================
-        # LOGS
-        # =========================================
         print("===================================")
-        print(f"LOGIN SUCCESS FOR: {username}")
-        print(f"OTP GENERATED: {otp}")
+        print("LOGIN SUCCESS FOR:", username)
+        print("OTP GENERATED:", otp)
         print("===================================")
 
         # =========================================
-        # SEND MAIL
+        # SEND EMAIL
         # =========================================
         try:
 
