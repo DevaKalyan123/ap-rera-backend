@@ -6,14 +6,19 @@ def send_otp_email(to_email, otp):
 
     sender_email = "devakalyaneepi@gmail.com"
 
-    app_password = "qwhxwmwflunoslwn"
+    smtp_password = ""
 
-    subject = "AP RERA OTP"
+    subject = "AP RERA OTP Verification"
 
     body = f"""
+Hello,
+
 Your OTP is: {otp}
 
-Do not share this OTP.
+Do not share this OTP with anyone.
+
+Thank You,
+AP RERA
 """
 
     msg = MIMEText(body)
@@ -22,35 +27,30 @@ Do not share this OTP.
     msg["From"] = sender_email
     msg["To"] = to_email
 
-    try:
+    print("CONNECTING BREVO SMTP")
 
-        print("CONNECTING SMTP")
+    server = smtplib.SMTP(
+        "smtp-relay.brevo.com",
+        587
+    )
 
-        server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
 
-        server.ehlo()
+    print("LOGIN SMTP")
 
-        server.starttls()
+    server.login(
+        sender_email,
+        smtp_password
+    )
 
-        server.ehlo()
+    print("SENDING EMAIL")
 
-        print("LOGIN GMAIL")
+    server.sendmail(
+        sender_email,
+        to_email,
+        msg.as_string()
+    )
 
-        server.login(sender_email, app_password)
+    server.quit()
 
-        print("SENDING EMAIL")
-
-        server.sendmail(
-            sender_email,
-            to_email,
-            msg.as_string()
-        )
-
-        server.quit()
-
-        print("MAIL SENT SUCCESSFULLY")
-
-    except Exception as e:
-
-        print("MAIL ERROR:", str(e))
-        raise e
+    print("MAIL SENT SUCCESSFULLY")
