@@ -1,58 +1,43 @@
 import smtplib
 from email.mime.text import MIMEText
-from flask import current_app
-import logging
 
 
 def send_otp_email(to_email, otp):
 
-    try:
+    subject = "Your OTP Code"
 
-        subject = "OTP for Admin Login"
-
-        body = f"""
-Hello,
-
+    body = f"""
 Your OTP is: {otp}
 
-This OTP is valid for 5 minutes.
+Do not share this OTP.
 """
 
-        msg = MIMEText(body)
+    msg = MIMEText(body)
 
-        msg["Subject"] = subject
-        msg["From"] = current_app.config.get("FROM_EMAIL")
-        msg["To"] = to_email
+    msg["Subject"] = subject
+    msg["From"] = "devakalyaneepi@gmail.com"
+    msg["To"] = to_email
 
-        logging.error("MAIL STARTED")
+    # Gmail SMTP
+    server = smtplib.SMTP("smtp.gmail.com", 587)
 
-        server = smtplib.SMTP(
-            current_app.config.get("SMTP_HOST"),
-            int(current_app.config.get("SMTP_PORT"))
-        )
+    # Start TLS Security
+    server.starttls()
 
-        server.starttls()
+    # Login using Gmail + App Password
+    server.login(
+        "devakalyaneepi@gmail.com",
+        "qwhxwmwflunoslwn"
+    )
 
-        logging.error("SMTP CONNECTED")
+    # Send Mail
+    server.sendmail(
+        "devakalyaneepi@gmail.com",
+        to_email,
+        msg.as_string()
+    )
 
-        server.login(
-            current_app.config.get("SMTP_USER"),
-            current_app.config.get("SMTP_PASSWORD")
-        )
+    # Close Connection
+    server.quit()
 
-        logging.error("SMTP LOGIN SUCCESS")
-
-        server.sendmail(
-            msg["From"],
-            [to_email],
-            msg.as_string()
-        )
-
-        logging.error("MAIL SENT SUCCESSFULLY")
-
-        server.quit()
-
-    except Exception as e:
-
-        logging.error(f"MAIL ERROR: {str(e)}")
-        raise e
+    print("OTP EMAIL SENT SUCCESSFULLY")
