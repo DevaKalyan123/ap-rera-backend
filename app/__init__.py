@@ -61,8 +61,11 @@ def create_app():
     # CORS Configuration
     # ---------------------------------------------------------
 
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
-    CORS(app)
+    CORS(
+    app,
+    resources={r"/api/*": {"origins": os.getenv("ALLOWED_ORIGINS").split(",")}},
+    supports_credentials=True
+)
 
     @app.before_request
     def handle_options():
