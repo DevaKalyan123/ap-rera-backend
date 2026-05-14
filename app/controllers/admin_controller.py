@@ -7,7 +7,7 @@ from app.utils.mail_utils import send_otp_email
 
 admin_bp = Blueprint("admin_bp", __name__)
 
-# Temporary OTP Store
+# Temporary OTP store
 otp_store = {}
 
 
@@ -24,18 +24,13 @@ def admin_login():
         username = data.get("username")
         password = data.get("password")
 
-        # =========================================
         # VALIDATE INPUT
-        # =========================================
         if not username or not password:
-
             return jsonify({
                 "error": "Username and password required"
             }), 400
 
-        # =========================================
-        # GET ADMIN FROM DATABASE
-        # =========================================
+        # GET ADMIN
         result = (
             db.session.execute(
                 text("""
@@ -50,20 +45,14 @@ def admin_login():
             .fetchone()
         )
 
-        # =========================================
         # USERNAME CHECK
-        # =========================================
         if not result:
-
             return jsonify({
                 "error": "Invalid username"
             }), 401
 
-        # =========================================
         # PASSWORD CHECK
-        # =========================================
         if result["password"] != password:
-
             return jsonify({
                 "error": "Invalid password"
             }), 401
@@ -71,6 +60,7 @@ def admin_login():
         # =========================================
         # OTP GENERATION
         # =========================================
+
         otp = str(random.randint(100000, 999999))
 
         # Store OTP
@@ -82,14 +72,9 @@ def admin_login():
         print("OTP:", otp)
         print("===================================")
 
-        # =========================================
         # SEND OTP EMAIL
-        # =========================================
         send_otp_email(result["email"], otp)
 
-        # =========================================
-        # RESPONSE
-        # =========================================
         return jsonify({
             "message": "OTP sent successfully",
             "username": username
@@ -117,27 +102,19 @@ def verify_otp():
         username = data.get("username")
         otp = data.get("otp")
 
-        # =========================================
         # VALIDATE INPUT
-        # =========================================
         if not username or not otp:
-
             return jsonify({
                 "error": "Username and OTP required"
             }), 400
 
-        # =========================================
         # VERIFY OTP
-        # =========================================
         if otp_store.get(username) != otp:
-
             return jsonify({
                 "error": "Invalid or expired OTP"
             }), 401
 
-        # =========================================
         # GET ADMIN DETAILS
-        # =========================================
         result = (
             db.session.execute(
                 text("""
@@ -151,26 +128,16 @@ def verify_otp():
             .fetchone()
         )
 
-        # =========================================
-        # ADMIN NOT FOUND
-        # =========================================
         if not result:
-
             return jsonify({
                 "error": "Admin not found"
             }), 404
 
-        # =========================================
-        # REMOVE OTP AFTER SUCCESS
-        # =========================================
+        # REMOVE OTP
         otp_store.pop(username, None)
 
-        # =========================================
-        # SUCCESS RESPONSE
-        # =========================================
         return jsonify({
             "message": "Login successful",
-
             "admin": {
                 "id": result["id"],
                 "username": result["username"],
