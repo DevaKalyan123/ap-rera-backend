@@ -1,13 +1,16 @@
 import random
+import logging
 from flask import Blueprint, request, jsonify
 from sqlalchemy import text
 
 from app.models.database import db
-from app.utils.mail_utils import send_otp_email
+# from app.utils.mail_utils import send_otp_email
 
 admin_bp = Blueprint("admin_bp", __name__)
 
-# Temporary OTP store
+# =========================================
+# TEMP OTP STORE
+# =========================================
 otp_store = {}
 
 
@@ -24,13 +27,17 @@ def admin_login():
         username = data.get("username")
         password = data.get("password")
 
+        # =========================================
         # VALIDATE INPUT
+        # =========================================
         if not username or not password:
             return jsonify({
                 "error": "Username and password required"
             }), 400
 
-        # GET ADMIN
+        # =========================================
+        # GET ADMIN FROM DATABASE
+        # =========================================
         result = (
             db.session.execute(
                 text("""
@@ -45,14 +52,23 @@ def admin_login():
             .fetchone()
         )
 
+        # =========================================
         # USERNAME CHECK
+        # =========================================
         if not result:
+            logging.error("INVALID USERNAME")
+
             return jsonify({
                 "error": "Invalid username"
             }), 401
 
+        # =========================================
         # PASSWORD CHECK
+        # =========================================
         if result["password"] != password:
+
+            logging.error("INVALID PASSWORD")
+
             return jsonify({
                 "error": "Invalid password"
             }), 401
@@ -60,29 +76,36 @@ def admin_login():
         # =========================================
         # OTP GENERATION
         # =========================================
-
         otp = str(random.randint(100000, 999999))
 
-        # Store OTP
+        # STORE OTP
         otp_store[username] = otp
 
-        print("===================================")
-        print("LOGIN SUCCESS")
-        print("USERNAME:", username)
-        print("OTP:", otp)
-        print("===================================")
+        # =========================================
+        # LOGS
+        # =========================================
+        logging.error("===================================")
+        logging.error(f"LOGIN SUCCESS FOR: {username}")
+        logging.error(f"OTP GENERATED: {otp}")
+        logging.error("===================================")
 
+        # =========================================
         # SEND OTP EMAIL
-        send_otp_email(result["email"], otp)
+        # =========================================
+        # TEMP COMMENT FOR DEBUGGING
+        # send_otp_email(result["email"], otp)
 
+        # =========================================
+        # SUCCESS RESPONSE
+        # =========================================
         return jsonify({
-            "message": "OTP sent successfully",
+            "message": "OTP generated successfully",
             "username": username
         }), 200
 
     except Exception as e:
 
-        print("LOGIN ERROR:", str(e))
+        logging.error(f"LOGIN ERROR: {str(e)}")
 
         return jsonify({
             "error": "Internal server error"
@@ -102,19 +125,28 @@ def verify_otp():
         username = data.get("username")
         otp = data.get("otp")
 
+        # =========================================
         # VALIDATE INPUT
+        # =========================================
         if not username or not otp:
             return jsonify({
                 "error": "Username and OTP required"
             }), 400
 
+        # =========================================
         # VERIFY OTP
+        # =========================================
         if otp_store.get(username) != otp:
+
+            logging.error("INVALID OTP")
+
             return jsonify({
                 "error": "Invalid or expired OTP"
             }), 401
 
+        # =========================================
         # GET ADMIN DETAILS
+        # =========================================
         result = (
             db.session.execute(
                 text("""
@@ -128,14 +160,24 @@ def verify_otp():
             .fetchone()
         )
 
+        # =========================================
+        # ADMIN NOT FOUND
+        # =========================================
         if not result:
             return jsonify({
                 "error": "Admin not found"
             }), 404
 
+        # =========================================
         # REMOVE OTP
+        # =========================================
         otp_store.pop(username, None)
 
+        logging.error(f"OTP VERIFIED SUCCESSFULLY FOR: {username}")
+
+        # =========================================
+        # SUCCESS RESPONSE
+        # =========================================
         return jsonify({
             "message": "Login successful",
             "admin": {
@@ -158,7 +200,7 @@ def verify_otp():
 
     except Exception as e:
 
-        print("VERIFY OTP ERROR:", str(e))
+        logging.error(f"VERIFY OTP ERROR: {str(e)}")
 
         return jsonify({
             "error": "Internal server error"
