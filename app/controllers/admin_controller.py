@@ -4,7 +4,7 @@ from flask import Blueprint, request, jsonify
 from sqlalchemy import text
 
 from app.models.database import db
-# from app.utils.mail_utils import send_otp_email
+from app.utils.mail_utils import send_otp_email
 
 admin_bp = Blueprint("admin_bp", __name__)
 
@@ -93,7 +93,7 @@ def admin_login():
         # SEND OTP EMAIL
         # =========================================
         # TEMP COMMENT FOR DEBUGGING
-        # send_otp_email(result["email"], otp)
+        send_otp_email(result["email"], otp)
 
         # =========================================
         # SUCCESS RESPONSE

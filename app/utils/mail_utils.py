@@ -5,47 +5,37 @@ from flask import current_app
 
 def send_otp_email(to_email, otp):
 
-    try:
+    subject = "OTP for Admin Login"
 
-        print("===================================")
-        print("MAIL FUNCTION STARTED")
-        print("TO EMAIL:", to_email)
-        print("OTP:", otp)
-        print("===================================")
-
-        subject = "AP RERA Admin Login OTP"
-
-        body = f"""
+    body = f"""
 Hello,
 
 Your OTP is: {otp}
 
-Thank You,
-AP RERA Team
+This OTP is valid for 5 minutes.
+
+Thank You.
 """
 
-        msg = MIMEText(body)
+    msg = MIMEText(body)
 
-        msg["Subject"] = subject
-        msg["From"] = current_app.config.get("FROM_EMAIL")
-        msg["To"] = to_email
+    msg["Subject"] = subject
+    msg["From"] = current_app.config.get("FROM_EMAIL")
+    msg["To"] = to_email
 
-        smtp_host = current_app.config.get("SMTP_HOST")
-        smtp_port = int(current_app.config.get("SMTP_PORT", 587))
-        smtp_user = current_app.config.get("SMTP_USER")
-        smtp_password = current_app.config.get("SMTP_PASSWORD")
+    try:
 
-        print("SMTP HOST:", smtp_host)
-        print("SMTP PORT:", smtp_port)
-        print("SMTP USER:", smtp_user)
-
-        server = smtplib.SMTP(smtp_host, smtp_port)
+        server = smtplib.SMTP(
+            current_app.config.get("SMTP_HOST"),
+            int(current_app.config.get("SMTP_PORT"))
+        )
 
         server.starttls()
 
-        server.login(smtp_user, smtp_password)
-
-        print("SMTP LOGIN SUCCESS")
+        server.login(
+            current_app.config.get("SMTP_USER"),
+            current_app.config.get("SMTP_PASSWORD")
+        )
 
         server.sendmail(
             msg["From"],
@@ -53,7 +43,7 @@ AP RERA Team
             msg.as_string()
         )
 
-        print("EMAIL SENT SUCCESSFULLY")
+        print("MAIL SENT SUCCESSFULLY")
 
         server.quit()
 
