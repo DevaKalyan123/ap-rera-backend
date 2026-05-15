@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from app.models.admin_renewal_model import get_all_projects
-import smtplib
+
 from email.message import EmailMessage
 from reportlab.pdfgen import canvas
 from sqlalchemy import text

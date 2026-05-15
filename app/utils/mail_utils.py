@@ -1,25 +1,38 @@
+import os
 import resend
 
-resend.api_key = "re_GoPMuG7Q_DK8Z1LPZw21PMhrnfvdWTWhM"
+# RESEND API KEY
+resend.api_key = os.getenv("RESEND_API_KEY")
 
 
-def send_otp_email(to_email, otp):
+def send_email_otp(to_email, otp):
 
     try:
 
         params = {
             "from": "onboarding@resend.dev",
             "to": [to_email],
-            "subject": "Your OTP Code",
+            "subject": "AP RERA OTP Verification",
             "html": f"""
                 <h2>Your OTP is: {otp}</h2>
-                <p>Do not share this OTP.</p>
+
+                <p>
+                    This OTP is valid for 5 minutes.
+                </p>
+
+                <br>
+
+                <p>
+                    Regards,<br>
+                    AP RERA
+                </p>
             """,
         }
 
         resend.Emails.send(params)
 
         print("OTP MAIL SENT SUCCESSFULLY")
+        print("MAIL SENT TO:", to_email)
 
     except Exception as e:
 

@@ -1,9 +1,9 @@
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, jsonify
 from datetime import datetime, timedelta
 import random
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import resend
+import os
+
 from sqlalchemy import text
 
 from app.models.database import db
@@ -13,20 +13,35 @@ from app.models.otp_model import AgentOTP
 
 otp_bp = Blueprint("otp_bp", __name__)
 
+# =========================================
+# RESEND API KEY
+# =========================================
+
+resend.api_key = os.getenv("RESEND_API_KEY")
+
 
 # =================================================
-# SEND EMAIL OTP (FINAL — NO app.utils)
+# SEND EMAIL OTP
 # =================================================
 @otp_bp.route("/send-email", methods=["POST"])
 def send_email_otp():
+
     try:
+
         data = request.json
+
         pan = data.get("panNumber")
 
         if not pan:
-            return jsonify({"error": "PAN number required"}), 400
 
-        # ✅ STEP 1: Check PAN + email
+            return jsonify({
+                "error": "PAN number required"
+            }), 400
+
+        # =========================================
+        # CHECK PAN + EMAIL
+        # =========================================
+
         query = text("""
             SELECT id, email
             FROM agentregistration_details_t
@@ -35,35 +50,57 @@ def send_email_otp():
         """)
 
         row = db.session.execute(
-            query, {"pan": pan.upper()}
+            query,
+            {"pan": pan.upper()}
         ).fetchone()
 
         if not row:
-            return jsonify({"error": "PAN not registered"}), 404
+
+            return jsonify({
+                "error": "PAN not registered"
+            }), 404
 
         agent_id = row.id
         email = row.email
 
         if not email:
-            return jsonify({"error": "Email not available"}), 400
 
-        # ✅ STEP 2: Generate OTP
+            return jsonify({
+                "error": "Email not available"
+            }), 400
+
+        # =========================================
+        # GENERATE OTP
+        # =========================================
+
         otp = str(random.randint(100000, 999999))
+
         expiry = datetime.utcnow() + timedelta(minutes=5)
 
-        # delete old otp
+        # DELETE OLD OTP
         db.session.execute(
-            text("DELETE FROM agent_otp_t WHERE agent_id = :id"),
+            text("""
+                DELETE FROM agent_otp_t
+                WHERE agent_id = :id
+            """),
             {"id": agent_id}
         )
 
-        # insert new otp
+        # INSERT NEW OTP
         db.session.execute(
             text("""
                 INSERT INTO agent_otp_t
-                    (agent_id, otp, created_at)
+                (
+                    agent_id,
+                    otp,
+                    created_at
+                )
                 VALUES
-                    (:agent_id, :otp, NOW())
+                (
+                    :agent_id,
+                    :otp,
+                    NOW()
+                )
             """),
             {
                 "agent_id": agent_id,
@@ -73,70 +110,90 @@ def send_email_otp():
 
         db.session.commit()
 
-        # =================================================
-        # ✅ STEP 3: SEND EMAIL (INLINE)
-        # =================================================
-        config = current_app.config
+        print("================================")
+        print("OTP GENERATED:", otp)
+        print("SENDING MAIL TO:", email)
+        print("================================")
 
-        msg = MIMEMultipart()
-        msg["From"] = config["FROM_EMAIL"]
-        msg["To"] = email
-        msg["Subject"] = "AP RERA OTP Verification"
+        # =========================================
+        # SEND EMAIL USING RESEND
+        # =========================================
 
-        msg.attach(MIMEText(f"""
-Dear Applicant,
+        params = {
 
-Your OTP for Agent Registration verification is:
+            "from": "onboarding@resend.dev",
 
-{otp}
+            "to": [email],
 
-This OTP is valid for 5 minutes.
+            "subject": "AP RERA OTP Verification",
 
-Regards,
-AP RERA
-""", "plain"))
+            "html": f"""
+                <h2>AP RERA OTP Verification</h2>
 
-        server = smtplib.SMTP(
-            config["SMTP_HOST"],
-            config["SMTP_PORT"]
-        )
+                <p>
+                    Dear Applicant,
+                </p>
 
-        if config["SMTP_USE_TLS"]:
-            server.starttls()
+                <h1>
+                    {otp}
+                </h1>
 
-        server.login(
-            config["SMTP_USER"],
-            config["SMTP_PASSWORD"]
-        )
+                <p>
+                    This OTP is valid for 5 minutes.
+                </p>
 
-        server.sendmail(
-            config["FROM_EMAIL"],
-            email,
-            msg.as_string()
-        )
+                <br>
 
-        server.quit()
+                <p>
+                    Regards,<br>
+                    AP RERA
+                </p>
+            """,
+        }
+
+        resend.Emails.send(params)
+
+        print("OTP MAIL SENT SUCCESSFULLY")
 
         return jsonify({
             "message": "OTP sent to registered email"
         }), 200
 
     except Exception as e:
+
         db.session.rollback()
+
+        print("MAIL ERROR:", str(e))
+
         return jsonify({
             "error": str(e)
         }), 500
+
+
+# =================================================
+# VERIFY OTP
+# =================================================
 @otp_bp.route("/verify", methods=["POST"])
 def verify_otp():
+
     try:
+
         data = request.json
+
         pan = data.get("panNumber")
+
         otp = data.get("otp")
 
         if not pan or not otp:
-            return jsonify({"error": "PAN and OTP are required"}), 400
 
-        # 🔍 Get agent id
+            return jsonify({
+                "error": "PAN and OTP are required"
+            }), 400
+
+        # =========================================
+        # GET AGENT ID
+        # =========================================
+
         query = text("""
             SELECT id
             FROM agentregistration_details_t
@@ -145,15 +202,22 @@ def verify_otp():
         """)
 
         row = db.session.execute(
-            query, {"pan": pan.upper()}
+            query,
+            {"pan": pan.upper()}
         ).fetchone()
 
         if not row:
-            return jsonify({"error": "PAN not registered"}), 404
+
+            return jsonify({
+                "error": "PAN not registered"
+            }), 404
 
         agent_id = row.id
 
-        # 🔐 Validate OTP
+        # =========================================
+        # VERIFY OTP
+        # =========================================
+
         otp_row = db.session.execute(
             text("""
                 SELECT id
@@ -171,9 +235,15 @@ def verify_otp():
         ).fetchone()
 
         if not otp_row:
-            return jsonify({"error": "Invalid or expired OTP"}), 401
 
-        # ✅ Mark OTP verified
+            return jsonify({
+                "error": "Invalid or expired OTP"
+            }), 401
+
+        # =========================================
+        # MARK VERIFIED
+        # =========================================
+
         db.session.execute(
             text("""
                 UPDATE agent_otp_t
@@ -190,7 +260,9 @@ def verify_otp():
         }), 200
 
     except Exception as e:
+
         db.session.rollback()
+
         return jsonify({
             "error": str(e)
         }), 500
