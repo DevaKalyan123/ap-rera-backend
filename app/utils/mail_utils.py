@@ -1,6 +1,5 @@
 import resend
 
-# RESEND API KEY
 resend.api_key = "re_GoPMuG7Q_DK8Z1LPZw21PMhrnfvdWTWhM"
 
 
