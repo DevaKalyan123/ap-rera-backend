@@ -48,8 +48,7 @@ def send_email(to_email, subject, body):
 # =========================================
 # OTP EMAIL
 # =========================================
-
-def send_otp_email(to_email, otp):
+def send_email_otp(to_email, otp):
 
     subject = "AP RERA OTP Verification"
 
