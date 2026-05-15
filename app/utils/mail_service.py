@@ -1,8 +1,6 @@
 import os
 import resend
 
-from email.mime.application import MIMEApplication
-
 # =========================================
 # RESEND API KEY
 # =========================================
@@ -36,6 +34,7 @@ def send_email(to_email, subject, body):
         resend.Emails.send(params)
 
         print("EMAIL SENT SUCCESSFULLY")
+        print("MAIL SENT TO:", to_email)
 
         return True
 
@@ -78,7 +77,10 @@ AP RERA
 # CHANGE REQUEST APPROVAL
 # =========================================
 
-def send_change_request_approval_email(to_email, application_no):
+def send_change_request_approval_email(
+    to_email,
+    application_no
+):
 
     body = f"""
 Dear Applicant,
@@ -324,7 +326,7 @@ AP RERA
 
 
 # =========================================
-# COMPLAINT APPROVAL
+# COMPLAINT APPROVAL - COMPLAINANT
 # =========================================
 
 def send_complaint_approval_mail_complainant(
@@ -358,7 +360,90 @@ AP RERA
 
 
 # =========================================
-# COMPLAINT CLOSED
+# COMPLAINT APPROVAL - RESPONDENT
+# =========================================
+
+def send_complaint_approval_mail_respondent(
+    email,
+    respondent_name,
+    complainant_name,
+    subject_text,
+    complaint_desc,
+    admin_remark
+):
+
+    body = f"""
+Dear {respondent_name},
+
+A complaint has been ACCEPTED against you.
+
+Complainant:
+{complainant_name}
+
+Subject:
+{subject_text}
+
+Description:
+{complaint_desc}
+
+Remarks:
+{admin_remark}
+
+Regards,
+AP RERA
+"""
+
+    return send_email(
+        email,
+        f"Complaint Against You - {subject_text}",
+        body
+    )
+
+
+# =========================================
+# COMPLAINT APPROVAL RESPONDENT WITH PDF
+# =========================================
+
+def send_complaint_approval_mail_respondent_with_pdf(
+    email,
+    respondent_name,
+    complainant_name,
+    subject_text,
+    complaint_desc,
+    admin_remark,
+    pdf_file,
+):
+
+    body = f"""
+Dear {respondent_name},
+
+A complaint has been ACCEPTED against you.
+
+Complainant:
+{complainant_name}
+
+Subject:
+{subject_text}
+
+Description:
+{complaint_desc}
+
+Remarks:
+{admin_remark}
+
+Regards,
+AP RERA
+"""
+
+    return send_email(
+        email,
+        f"Complaint Against You - {subject_text}",
+        body
+    )
+
+
+# =========================================
+# COMPLAINT CLOSED - COMPLAINANT
 # =========================================
 
 def send_complaint_closed_mail_complainant(
@@ -373,6 +458,44 @@ def send_complaint_closed_mail_complainant(
 Dear {name},
 
 Your complaint has been CLOSED.
+
+Subject:
+{subject_text}
+
+Final Remarks:
+{admin_remark}
+
+Regards,
+AP RERA
+"""
+
+    return send_email(
+        email,
+        f"Complaint Closed - {subject_text}",
+        body
+    )
+
+
+# =========================================
+# COMPLAINT CLOSED - RESPONDENT
+# =========================================
+
+def send_complaint_closed_mail_respondent(
+    email,
+    respondent_name,
+    complainant_name,
+    subject_text,
+    complaint_desc,
+    admin_remark
+):
+
+    body = f"""
+Dear {respondent_name},
+
+The complaint filed against you has been CLOSED.
+
+Complainant:
+{complainant_name}
 
 Subject:
 {subject_text}
