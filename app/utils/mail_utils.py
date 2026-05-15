@@ -1,56 +1,27 @@
-import smtplib
-from email.mime.text import MIMEText
+import resend
+
+# RESEND API KEY
+resend.api_key = "re_GoPMuG7Q_DK8Z1LPZw21PMhrnfvdWTWhM"
 
 
 def send_otp_email(to_email, otp):
 
-    sender_email = "devakalyaneepi@gmail.com"
+    try:
 
-    smtp_password = ""
+        params = {
+            "from": "onboarding@resend.dev",
+            "to": [to_email],
+            "subject": "Your OTP Code",
+            "html": f"""
+                <h2>Your OTP is: {otp}</h2>
+                <p>Do not share this OTP.</p>
+            """,
+        }
 
-    subject = "AP RERA OTP Verification"
+        resend.Emails.send(params)
 
-    body = f"""
-Hello,
+        print("OTP MAIL SENT SUCCESSFULLY")
 
-Your OTP is: {otp}
+    except Exception as e:
 
-Do not share this OTP with anyone.
-
-Thank You,
-AP RERA
-"""
-
-    msg = MIMEText(body)
-
-    msg["Subject"] = subject
-    msg["From"] = sender_email
-    msg["To"] = to_email
-
-    print("CONNECTING BREVO SMTP")
-
-    server = smtplib.SMTP(
-        "smtp-relay.brevo.com",
-        587
-    )
-
-    server.starttls()
-
-    print("LOGIN SMTP")
-
-    server.login(
-        sender_email,
-        smtp_password
-    )
-
-    print("SENDING EMAIL")
-
-    server.sendmail(
-        sender_email,
-        to_email,
-        msg.as_string()
-    )
-
-    server.quit()
-
-    print("MAIL SENT SUCCESSFULLY")
+        print("MAIL ERROR:", str(e))
